@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Svelto.ECS.Example.Survive.Engines.HUD
 {
-    public class HUDEngine : SingleNodeEngine<HUDNode>, IQueryableNodeEngine, IStep<PlayerDamageInfo>
+    public class HUDEngine : SingleNodeEngine<HUDNode>, IQueryableNodeEngine, IStep<PlayerDamageInfo> , IStep<PlayerHealInfo>
     {
         public IEngineNodeDB nodesDB { set; private get; }
 
@@ -57,6 +57,24 @@ namespace Svelto.ECS.Example.Survive.Engines.HUD
             if ((DamageCondition)condition == DamageCondition.dead)
                 OnDeadEvent();
                 
+        }
+
+        public void Step( ref PlayerHealInfo token, Enum condition )
+        {
+            if ((DamageCondition)condition == DamageCondition.heal)
+            {
+                OnHealEvent(ref token);
+            }
+        }
+
+        void OnHealEvent( ref PlayerHealInfo token )
+        {
+            var damageComponent = _guiNode.damageImageComponent;
+            var damageImage = damageComponent.damageImage;
+
+            damageImage.color = damageComponent.flashColor;
+
+            _guiNode.healthSliderComponent.healthSlider.value = nodesDB.QueryNode<HUDDamageEventNode>(token.entityHealed).healthComponent.currentHealth;
         }
 
         HUDNode         _guiNode;

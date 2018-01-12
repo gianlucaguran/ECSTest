@@ -5,14 +5,19 @@ using UnityEngine;
 
 namespace Svelto.ECS.Example.Survive.Engines.Health
 {
-    public class HealthEngine : IEngine, IQueryableNodeEngine, IStep<DamageInfo>, IStep<PlayerDamageInfo>
+    public class HealthEngine : IEngine, IQueryableNodeEngine, IStep<DamageInfo>, IStep<PlayerDamageInfo>, IStep<PlayerHealInfo>
     {
         Sequencer _damageSequence;
+        Sequencer _healSequence;
 
-        public HealthEngine(Sequencer playerDamageSequence)
+        public HealthEngine(Sequencer playerDamageSequence, Sequencer healingSequence )
         {
             _damageSequence = playerDamageSequence;
+            _healSequence = healingSequence;
         }
+
+        public HealthEngine(Sequencer playerDamageSequence) : this ( playerDamageSequence, null)
+        {}
 
         public IEngineNodeDB nodesDB { set; private get; }
 
@@ -29,7 +34,6 @@ namespace Svelto.ECS.Example.Survive.Engines.Health
         public void Step(ref PlayerHealInfo token, Enum condition)
         {
             Heal(ref token);
-            Debug.Log("Step healing ");
         }
 
         void TriggerDamage<T>(ref T damage) where T:IDamageInfo
@@ -57,6 +61,8 @@ namespace Svelto.ECS.Example.Survive.Engines.Health
            
             int health = healthComponent.currentHealth + heal.HPGained;
             healthComponent.currentHealth = Math.Min(health, healthComponent.maxHealth);
+
+            _healSequence.Next(this, ref heal, DamageCondition.heal);
         }
     }
 }

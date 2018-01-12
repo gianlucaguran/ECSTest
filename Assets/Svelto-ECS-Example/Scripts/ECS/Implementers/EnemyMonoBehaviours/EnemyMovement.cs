@@ -18,6 +18,7 @@ namespace Svelto.ECS.Example.Survive.Implementers.Enemies
         UnityEngine.AI.NavMeshAgent IEnemyMovementComponent.navMesh { get { return _nav; } }
 
         float IEnemyMovementComponent.sinkSpeed { get { return sinkSpeed; } }
+
         Transform ITransformComponent.transform { get { return _transform; }}
 
         public Action removeEntity { get { return _removeAction; } set { _removeAction = value;  }  }

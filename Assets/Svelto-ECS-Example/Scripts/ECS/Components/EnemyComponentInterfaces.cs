@@ -26,7 +26,7 @@ namespace Svelto.ECS.Example.Survive.Components.Enemy
         GameObject enemyPrefab { get; }
         Transform[] spawnPoints { get; }
         //float spawnTime         { get; }
-        float spawnQuantity { get; }   //how many of this type have to spawn each wave ? 
+        float spawnQuantity { get; }   //dictates how many of this type have to spawn each wave 
     }
 
     public interface IEnemyTriggerComponent : IComponent

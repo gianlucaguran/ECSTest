@@ -19,4 +19,13 @@ namespace Svelto.ECS.Example.Survive.Components.Pickups
     {
         int healthValue { get; }
     }
+
+    public interface IPickUpSpawnerComponent : IComponent
+    {
+        GameObject pickupPrefab { get; }
+        Transform[] spawnPoints { get; }
+        //bool [] spawned { get;  }
+        float spawnTime         { get; }
+        float spawnProbability { get; }
+    }
 }

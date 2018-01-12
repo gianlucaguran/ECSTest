@@ -38,7 +38,7 @@ namespace Svelto.ECS.Example.Survive
             Sequencer playerHealSequence = new Sequencer();
 
             var enemyAnimationEngine = new EnemyAnimationEngine();
-            var playerHealthEngine = new HealthEngine(playerDamageSequence);
+            var playerHealthEngine = new HealthEngine(playerDamageSequence, playerHealSequence );
             var enemyHealthEngine = new HealthEngine(enemyDamageSequence);
             var hudEngine = new HUDEngine();
             var damageSoundEngine = new DamageSoundEngine();
@@ -97,10 +97,18 @@ namespace Svelto.ECS.Example.Survive
                 new Steps()
                 {
                     {
-                        playerHealthEngine,
+                        healingPickupEngine,
                         new Dictionary<System.Enum, IStep[]>()
                         {
                             {DamageCondition.heal, new IStep[]{ playerHealthEngine } },
+                        }
+                    },
+
+                     { //second step
+                        playerHealthEngine, //this step can be triggered only by this engine through the Next function
+                        new Dictionary<System.Enum, IStep[]>() //this step can branch in two paths
+                        {
+                            {  DamageCondition.heal, new IStep[] { hudEngine }  }, //these engines will be called when the Next function is called with the DamageCondition.damage set
                         }
                     }
                 }
@@ -134,7 +142,10 @@ namespace Svelto.ECS.Example.Survive
             IEntityDescriptorHolder[] entities = contextHolder.GetComponentsInChildren<IEntityDescriptorHolder>();
 
             for (int i = 0; i < entities.Length; i++)
+            {
+                
                 _entityFactory.BuildEntity((entities[i] as MonoBehaviour).gameObject.GetInstanceID(), entities[i].BuildDescriptorType());
+            }
         }
 
         void ICompositionRoot.OnContextInitialized()
