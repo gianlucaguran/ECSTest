@@ -29,7 +29,7 @@ namespace Svelto.ECS.Example.Survive.EntityDescriptors.Pickups
     }
 
     [DisallowMultipleComponent]
-    public class EnemySpawnerEntityDescriptorHolder : MonoBehaviour, IEntityDescriptorHolder
+    public class PickupSpawnerEntityDescriptorHolder : MonoBehaviour, IEntityDescriptorHolder
     {
         public EntityDescriptor BuildDescriptorType(object[] extraImplentors = null)
         {

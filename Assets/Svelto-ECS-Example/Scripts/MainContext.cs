@@ -49,6 +49,7 @@ namespace Svelto.ECS.Example.Survive
             var enemyMovementEngine = new EnemyMovementEngine();
             var enemySpawnerEngine = new EnemySpawnerEngine(factory, _entityFactory);
             var healingPickupEngine = new HealthPickupEngine(playerHealSequence);
+            var pickupSpawnerEngine = new PickupSpawnerEngine(factory, _entityFactory);
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -130,6 +131,7 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(hudEngine);
             AddEngine(new ScoreEngine(scoreOnEnemyKilledObserver));
             AddEngine(healingPickupEngine);
+            AddEngine(pickupSpawnerEngine);
         }
 
         void AddEngine(IEngine engine)
