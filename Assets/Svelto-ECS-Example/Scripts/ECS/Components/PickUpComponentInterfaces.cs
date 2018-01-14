@@ -28,4 +28,6 @@ namespace Svelto.ECS.Example.Survive.Components.Pickups
         float spawnTime         { get; }
         float spawnProbability { get; }
     }
+
+    
 }

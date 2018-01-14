@@ -40,9 +40,7 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
 
         void Tick(float deltaTime)
         {
-
-            Debug.Log("Tick ");
-
+            
             for (int i = 0; _bonusToSpawn.Count > i; i++)
             {
                 if (_bonusToSpawn[i].timer > _bonusToSpawn[i].time)

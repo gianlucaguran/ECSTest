@@ -22,6 +22,12 @@ namespace Svelto.ECS.Example.Survive.Nodes.Pickups
     {
         public IPickUpSpawnerComponent[] spawnerComponents;
     }
+
+    public class PickupSoundNode : NodeWithID
+    {
+        public ISingleSoundComponent soundComponent;
+        public IHealthPickUpComponent healthPickupComponent;
+    }
 }
 
 

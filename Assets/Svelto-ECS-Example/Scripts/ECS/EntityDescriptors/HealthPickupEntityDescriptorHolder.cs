@@ -12,6 +12,7 @@ namespace Svelto.ECS.Example.Survive.EntityDescriptors.Pickups
             _nodesToBuild = new INodeBuilder[]
             {
                 new NodeBuilder<HealthPickupNode>(),
+                new NodeBuilder<PickupSoundNode>()
             };
         }
 

@@ -7,9 +7,12 @@ using Svelto.ECS.Example.Survive.Components.Base;
 
 namespace Svelto.ECS.Example.Survive.Implementers.Pickups
 {
-    public class HealthPickup : MonoBehaviour, IHealthPickUpComponent, IRemoveEntityComponent, ITransformComponent
+    public class HealthPickup : MonoBehaviour, IHealthPickUpComponent, IRemoveEntityComponent, ITransformComponent, ISingleSoundComponent
     {
+        //Editor variables
         public int HealthValue = 10;  //editor variable
+        public AudioClip Sound;
+        //
 
         int IHealthPickUpComponent.healthValue { get { return HealthValue; } }
 
@@ -18,6 +21,10 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
         Transform ITransformComponent.transform { get { return _transform; } }
 
         Action IRemoveEntityComponent.removeEntity { get; set; }
+
+        AudioSource ISingleSoundComponent.audioSource { get { return _audioSource; } }
+
+        AudioClip ISingleSoundComponent.sound { get { return Sound; } }
 
         public event Action<int, int> touchPickup;
 
@@ -34,10 +41,12 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
         private void Awake()
         {
             _transform = this.transform;
+            _audioSource = this.GetComponent<AudioSource>();
         }
 
   
         bool _targetInRange = false;
         Transform _transform;
+        AudioSource _audioSource;
     }
 }
