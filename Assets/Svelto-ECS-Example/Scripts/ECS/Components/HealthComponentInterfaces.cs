@@ -49,13 +49,13 @@ namespace Svelto.ECS.Example.Survive.Components.Damageable
     {
         public int HPGained { get; private set; }
         public int entityHealed { get; private set; }
-        public int pickupUsed { get; private set; }
+        public int sourceID { get; private set; }
 
-        public PlayerHealInfo( int healValue, int entity, int pickup )
+        public PlayerHealInfo( int healValue, int entity, int source )
         {
             HPGained = healValue;
             entityHealed = entity;
-            pickupUsed = pickup;
+            sourceID = source;
         }
     }
     

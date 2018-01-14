@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Svelto.ECS.Example.Survive.Components.Damageable;
 using Svelto.ECS.Example.Survive.Nodes.Pickups;
 using Svelto.ECS.Internal;
@@ -29,10 +30,11 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
             var healthComponent = node.healthPickupComponent;
             var playerHealInfo = new PlayerHealInfo(healthComponent.healthValue, entityID, pickupID);
             _healingSequence.Next(this, ref playerHealInfo, DamageCondition.heal);
-
-            //node.removeEntityComponent.removeEntity();
+            
+            node.removeEntityComponent.removeEntity();
         }
 
+        
         public void Add(INode obj)
         {
             (obj as HealthPickupNode).healthPickupComponent.touchPickup += TouchPickUp;
@@ -47,7 +49,6 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
 
 
         Sequencer _healingSequence;
-
         public IEngineNodeDB nodesDB { set; private get; }
     }
 

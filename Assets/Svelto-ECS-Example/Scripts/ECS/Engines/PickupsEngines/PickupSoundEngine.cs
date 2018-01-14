@@ -2,40 +2,36 @@
 using Svelto.ECS.Example.Survive.Nodes.Pickups;
 using Svelto.ECS.Internal;
 using UnityEngine;
+using Svelto.ECS.Example.Survive.Components.Damageable;
 
 namespace Svelto.ECS.Example.Survive.Engines.Pickups
 {
-    public class PickupSoundEngine : MultiNodesEngine<PickupSoundNode>, INodeEngine, IQueryableNodeEngine
+    public class PickupSoundEngine : MultiNodesEngine<HealthPickupReactionNode>, IQueryableNodeEngine, IStep<PlayerHealInfo>
     {
         public IEngineNodeDB nodesDB { set; private get; }
 
-         void INodeEngine.Add(INode node)
-        {
-            var component = (node as PickupSoundNode).healthPickupComponent;
-            component.touchPickup += PlaySound;
-        }
-
-         void INodeEngine.Remove(INode node)
-        {
-            var component = (node as PickupSoundNode).healthPickupComponent;
-            component.touchPickup -= PlaySound;
-        }
+        
 
         //entityHealedID not used, kept for callback compatibility purpose
         void PlaySound(int entityHealedID, int nodeID)
         {
-            var node = nodesDB.QueryNode<PickupSoundNode>(nodeID);
+            var node = nodesDB.QueryNode<HealthPickupReactionNode>(nodeID);
             node.soundComponent.audioSource.PlayOneShot(node.soundComponent.sound);
         }
 
-        protected override void AddNode(PickupSoundNode node)
+       
+
+        public void Step(ref PlayerHealInfo token, Enum condition)
         {
-            Debug.Log("Add Node Called");
+            PlaySound(token.entityHealed, token.sourceID);
         }
 
-        protected override void RemoveNode(PickupSoundNode node)
+        protected override void AddNode(HealthPickupReactionNode node)
         {
-            Debug.Log("Remove Node Called");
+        }
+
+        protected override void RemoveNode(HealthPickupReactionNode node)
+        {
         }
     }
 }
