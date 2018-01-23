@@ -1,0 +1,11 @@
+- First feature : implementing Wave System
+I have to make a choice: implementing a timed system, with a timer always running (and waves overlapping) , or implementing a system where a wave spawns only when the previous one ended.
+I chose the latter. ( Reason: while more difficult, being able to understand when all enemies are defeated can be useful for gameplay systems, so looking into it method is also more interesting).
+Enemy spawner is re-organized as a state machine, with a buffer/wait state before each wave.
+To understand if all enemies are defeated, a counter variable is added to the engine. It's increased every time an enemy is spawned, decreased when an enemy is killed. 
+The increment is easy to implement as all the related logic is inside the EnemySpawningEngine.
+The decrement requires some kind of event that allows the engine to know when an enemy is killed.
+I initially implemented it using an observer, which was passed to the SpawningEngine.
+Then I wanted to try to re-implement it using the Sequencer. I added another step to the EnemyDamageSequence, which call the EnemySpawnEngine. Inside its step, the engine decreases the counter.
+
+Timing the enemy spawning problem:
