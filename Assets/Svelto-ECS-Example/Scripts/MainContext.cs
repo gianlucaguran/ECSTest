@@ -107,10 +107,10 @@ namespace Svelto.ECS.Example.Survive
                     },
 
                      { //second step
-                        playerHealthEngine, //this step can be triggered only by this engine through the Next function
-                        new Dictionary<System.Enum, IStep[]>() //this step can branch in two paths
+                        playerHealthEngine, 
+                        new Dictionary<System.Enum, IStep[]>()  
                         {
-                            {  DamageCondition.heal, new IStep[] { hudEngine, pickupSoundEngine }  }, //these engines will be called when the Next function is called with the DamageCondition.damage set
+                            {  DamageCondition.heal, new IStep[] { hudEngine/*, pickupSoundEngine*/ }  }, 
                         }
                     }
                 }
