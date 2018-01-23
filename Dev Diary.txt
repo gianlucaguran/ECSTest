@@ -8,4 +8,13 @@ The decrement requires some kind of event that allows the engine to know when an
 I initially implemented it using an observer, which was passed to the SpawningEngine.
 Then I wanted to try to re-implement it using the Sequencer. I added another step to the EnemyDamageSequence, which call the EnemySpawnEngine. Inside its step, the engine decreases the counter.
 
-Timing the enemy spawning problem:
+Problem - timing the enemy spawns: 
+The spawn logic is inside a function which is called inside the IntervaledTick method.
+Initially I wanted to put some delay between each enemy spawn (in the same wave), but I didn't manage to call a second IEnumerator from inside IntervaledTick. 
+So I made all the enemies spawn all together, and the result is ok.
+I will eventually improve it later by checking better how the TaskRunner works.
+
+- Pickups
+I created a common interface for all pickups components(IPickUpComponent), and then specialized it for ammo and health. It contains a delegate field that will be set by the engine.
+I created a component for Pickupspawning, similar to the one for the enemies.
+
