@@ -28,5 +28,6 @@ namespace Svelto.ECS.Example.Survive.Nodes.Gun
         public IGunAttributesComponent   gunComponent;
         public IGunFXComponent           gunFXComponent;
         public IGunHitTargetComponent    gunHitTargetComponent;
+        public IAmmoHolderComponent     ammoHolderComponent;
     }
 }

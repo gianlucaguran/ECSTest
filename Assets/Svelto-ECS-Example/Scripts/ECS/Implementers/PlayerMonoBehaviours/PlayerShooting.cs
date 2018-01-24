@@ -1,13 +1,15 @@
+using System;
 using Svelto.ECS.Example.Survive.Components.Gun;
 using UnityEngine;
 
 namespace Svelto.ECS.Example.Survive.Implementers.Player
 {
-    public class PlayerShooting : MonoBehaviour, IGunAttributesComponent, IGunFXComponent, IGunHitTargetComponent
+    public class PlayerShooting : MonoBehaviour, IGunAttributesComponent, IGunFXComponent, IGunHitTargetComponent, IAmmoHolderComponent
     {
         public int DamagePerShot = 20;                  // The damage inflicted by each bullet.
         public float TimeBetweenBullets = 0.15f;        // The time between each shot.
         public float Range = 100f;                      // The distance the gun can fire.
+        public int Projectiles = 10;                    // Projectile count
 
         public float timeBetweenBullets { get { return TimeBetweenBullets; } }
         public float range { get { return Range; } }
@@ -29,6 +31,8 @@ namespace Svelto.ECS.Example.Survive.Implementers.Player
         new public Light light { get { return _gunLight; }}
 
         public float effectsDisplayTime { get { return _effectsDisplayTime; } }
+
+        public int projectilesCount { get { return Projectiles; } set { Projectiles = value; Debug.Log("Projectile count = " + Projectiles); } }
 
         void Awake ()
         {

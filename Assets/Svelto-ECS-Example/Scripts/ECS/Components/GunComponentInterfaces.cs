@@ -25,4 +25,9 @@ namespace Svelto.ECS.Example.Survive.Components.Gun
         Light           light { get; }
         float           effectsDisplayTime { get; }
     }
+
+    public interface IAmmoHolderComponent : IComponent
+    {
+        int projectilesCount { get; set; }
+    }
 }

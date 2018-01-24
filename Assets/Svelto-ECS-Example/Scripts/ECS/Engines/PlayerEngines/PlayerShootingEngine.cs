@@ -42,10 +42,13 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
             if (_playerGunNode == null) return;
 
             var playerGunComponent = _playerGunNode.gunComponent;
+            var playerAmmoComponent = _playerGunNode.ammoHolderComponent;
 
             playerGunComponent.timer += deltaSec;
 
-            if (Input.GetButton("Fire1") && playerGunComponent.timer >= _playerGunNode.gunComponent.timeBetweenBullets && Time.timeScale != 0)
+            if (Input.GetButton("Fire1") && playerGunComponent.timer >= _playerGunNode.gunComponent.timeBetweenBullets 
+                && Time.timeScale != 0
+                && playerAmmoComponent.projectilesCount > 0 )
                 Shoot();
         }
 
@@ -54,8 +57,10 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
             RaycastHit shootHit;
             var playerGunComponent = _playerGunNode.gunComponent;
             var playerGunHitComponent = _playerGunNode.gunHitTargetComponent;
+            var playerAmmoComponent = _playerGunNode.ammoHolderComponent;
 
             playerGunComponent.timer = 0;
+            playerAmmoComponent.projectilesCount--;
 
             if (Physics.Raycast(playerGunComponent.shootRay, 
                 out shootHit, playerGunComponent.range, SHOOTABLE_MASK | ENEMY_MASK))
