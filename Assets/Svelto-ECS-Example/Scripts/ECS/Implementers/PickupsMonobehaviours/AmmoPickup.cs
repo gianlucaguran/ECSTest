@@ -1,29 +1,31 @@
 ﻿using UnityEngine;
 using Svelto.ECS.Example.Survive.Components.Pickups;
-using System;
 using Svelto.ECS.Example.Survive.Components.Base;
+using System;
 
 namespace Svelto.ECS.Example.Survive.Implementers.Pickups
 {
-    public class HealthPickup : MonoBehaviour, IHealthPickUpComponent, IRemoveEntityComponent, ITransformComponent
+
+    public class AmmoPickup : MonoBehaviour, IAmmoPickUpComponent, ITransformComponent, IRemoveEntityComponent
     {
         //Editor variables
-        public int HealthValue = 10;  //editor variable
+        public int AmmoValue = 10;
         //
 
-        int IHealthPickUpComponent.healthValue { get { return HealthValue; } }
-
-        bool IPickUpComponent.targetInRange { get { return _targetInRange; } set { _targetInRange = value; } }
+        Action IRemoveEntityComponent.removeEntity {  get; set; }
 
         Transform ITransformComponent.transform { get { return _transform; } }
 
-        Action IRemoveEntityComponent.removeEntity { get; set; }
-        
-        public event Action<int, int> touchPickup;
+        int IAmmoPickUpComponent.ammoValue { get { return AmmoValue; } }
+
+        bool IPickUpComponent.targetInRange { get; set; }
+
+        public event Action<int, int> touchPickup ;
+
 
         //only player can trigger these events because it's the only thing that can collide with pickups 
         //( see physics settings) 
-         void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
         {
             if (null != touchPickup)
             {
@@ -36,8 +38,9 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
             _transform = this.transform;
         }
 
-  
+
         bool _targetInRange = false;
         Transform _transform;
+
     }
 }
