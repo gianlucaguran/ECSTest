@@ -36,6 +36,7 @@ namespace Svelto.ECS.Example.Survive
             Sequencer playerDamageSequence = new Sequencer();
             Sequencer enemyDamageSequence = new Sequencer();
             Sequencer playerHealSequence = new Sequencer();
+            Sequencer ammoRechargeSequence = new Sequencer();
 
             var enemyAnimationEngine = new EnemyAnimationEngine();
             var playerHealthEngine = new HealthEngine(playerDamageSequence, playerHealSequence );
@@ -49,8 +50,10 @@ namespace Svelto.ECS.Example.Survive
             var enemyMovementEngine = new EnemyMovementEngine();
             var enemySpawnerEngine = new EnemySpawnerEngine(factory, _entityFactory);
             var healingPickupEngine = new HealthPickupEngine(playerHealSequence);
+            var ammoPickupEngine = new AmmoPickupEngine(ammoRechargeSequence);
             var pickupSpawnerEngine = new PickupSpawnerEngine(factory, _entityFactory);
             var pickupSoundEngine = new PickupSoundEngine();
+            
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -116,6 +119,21 @@ namespace Svelto.ECS.Example.Survive
                 }
              );
 
+            ////Sequence for ammo recharge
+            //ammoRechargeSequence.SetSequence(
+            //    new Steps()
+            //    {
+            //        //{
+            //        //    ammoPickupEngine,
+            //        //    new Dictionary<System.Enum, IStep[]>()
+            //        //    {
+            //        //        {Condition.always, new IStep[]{  } },
+            //        //    }
+            //        //},
+
+            //    }
+            //    );
+
             AddEngine(playerMovementEngine);
             AddEngine(playerAnimationEngine);
             AddEngine(playerShootingEngine);
@@ -132,6 +150,7 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(hudEngine);
             AddEngine(new ScoreEngine(scoreOnEnemyKilledObserver));
             AddEngine(healingPickupEngine);
+            AddEngine(ammoPickupEngine);
             AddEngine(pickupSpawnerEngine);
             AddEngine(pickupSoundEngine);
         }

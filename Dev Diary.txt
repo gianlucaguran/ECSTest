@@ -15,6 +15,13 @@ So I made all the enemies spawn all together, and the result is ok.
 I will eventually improve it later by checking better how the TaskRunner works.
 
 - Pickups
-I created a common interface for all pickups components(IPickUpComponent), and then specialized it for ammo and health. It contains a delegate field that will be set by the engine.
+I created a common interface for all pickups components(IPickUpComponent), and then specialized it for ammo and health. It contains a delegate field that will be set by the engine. That function is used on TriggerEnter.
 I created a component for Pickupspawning, similar to the one for the enemies.
 
+
+
+
+Pickup Sounds:
+I want to add a sound when a pickup is activated. 
+I create an appropriate component that contains an audiosource and an audioclip, and include that in the pickup entity. I create and an engine that plays that audioclip as step of the healing sequence.
+During testing, the sound is not played properly because the entity gets destroyed during the event, as well as the game object containing the sound.

@@ -30,4 +30,5 @@ namespace Svelto.ECS.Example.Survive.Components.Gun
     {
         int projectilesCount { get; set; }
     }
+    
 }

@@ -746,6 +746,7 @@ GameObject:
   - component: {fileID: 111660590}
   - component: {fileID: 111660591}
   - component: {fileID: 111660592}
+  - component: {fileID: 111660593}
   m_Layer: 8
   m_Name: PickUpManager
   m_TagString: Untagged
@@ -794,6 +795,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95d0dc6976976747a635235d423b221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &111660593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 111660589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1dab59979fbf4646894c79713b3b477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickup: {fileID: 1556592425646364, guid: 5c2867917f664aa4e8c28d82f172b83f, type: 2}
+  spawnPoints:
+  - {fileID: 1167678495}
+  - {fileID: 1981072622}
+  spawnTime: 5
+  spawnProbability: 0.6
 --- !u!1 &177326011
 GameObject:
   m_ObjectHideFlags: 0
@@ -4209,7 +4227,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1167678494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -6.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6745,7 +6763,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1981072621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 4.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

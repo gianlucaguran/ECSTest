@@ -17,9 +17,7 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
         Transform ITransformComponent.transform { get { return _transform; } }
 
         int IAmmoPickUpComponent.ammoValue { get { return AmmoValue; } }
-
-        bool IPickUpComponent.targetInRange { get; set; }
-
+        
         public event Action<int, int> touchPickup ;
 
 
@@ -37,9 +35,7 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
         {
             _transform = this.transform;
         }
-
-
-        bool _targetInRange = false;
+        
         Transform _transform;
 
     }

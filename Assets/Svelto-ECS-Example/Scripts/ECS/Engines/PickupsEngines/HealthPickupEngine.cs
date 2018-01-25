@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Svelto.ECS.Example.Survive.Components.Damageable;
+﻿using Svelto.ECS.Example.Survive.Components.Damageable;
 using Svelto.ECS.Example.Survive.Nodes.Pickups;
 using Svelto.ECS.Internal;
 

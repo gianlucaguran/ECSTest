@@ -12,8 +12,7 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
         //
 
         int IHealthPickUpComponent.healthValue { get { return HealthValue; } }
-
-        bool IPickUpComponent.targetInRange { get { return _targetInRange; } set { _targetInRange = value; } }
+        
 
         Transform ITransformComponent.transform { get { return _transform; } }
 
@@ -37,7 +36,6 @@ namespace Svelto.ECS.Example.Survive.Implementers.Pickups
         }
 
   
-        bool _targetInRange = false;
         Transform _transform;
     }
 }
