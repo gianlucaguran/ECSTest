@@ -67,13 +67,13 @@ namespace Svelto.ECS.Example.Survive.Engines.HUD
             }
         }
 
+        //Healing event
+        //similar to damage event but increases value of the slider, and doesn't flash the damage image
         void OnHealEvent( ref PlayerHealInfo token )
         {
             var damageComponent = _guiNode.damageImageComponent;
             var damageImage = damageComponent.damageImage;
-
-            damageImage.color = damageComponent.flashColor;
-
+            
             _guiNode.healthSliderComponent.healthSlider.value = nodesDB.QueryNode<HUDDamageEventNode>(token.entityHealed).healthComponent.currentHealth;
         }
 
