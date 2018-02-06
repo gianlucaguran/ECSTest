@@ -34,5 +34,8 @@ UI to show Ammo count : imitated Score Manager. But how to actually setup the ev
 Setting up a way to notify ammo count change: 
 Used 2 sequence. Ammo recharge sequence was already present, added step with AmmoGUIEngine. For ammo depletion, I created a specific sequence called inside the PlayerShootingEngine.
 I thought about creating an observer for ammo update, but sequencer felt  more flexible (and a recharge sequence was already present... )
-
+Problem: Initial value of ammo indicator on GUI 
+I found a bit awkward to find a way to pass the initial ammo value to the relative GUI engine.  I changed the AmmoGUIEngine base class to 
+ MultiNodesEngine<HUDNode, GunNode> . It takes the ammo count from gun node and set it in the HUD node.
+Doubt: what if, when the GunNode is added, the HUD node is still not set? During testing this never happened though.
  

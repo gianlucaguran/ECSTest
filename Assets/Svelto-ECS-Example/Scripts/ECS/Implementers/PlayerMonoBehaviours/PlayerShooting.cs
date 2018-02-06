@@ -32,7 +32,7 @@ namespace Svelto.ECS.Example.Survive.Implementers.Player
 
         public float effectsDisplayTime { get { return _effectsDisplayTime; } }
 
-        public int projectilesCount { get { return Projectiles; } set { Projectiles = value; Debug.Log("Projectile count = " + Projectiles); } }
+        public int projectilesCount { get { return Projectiles; } set { Projectiles = value; } }
 
         void Awake ()
         {
