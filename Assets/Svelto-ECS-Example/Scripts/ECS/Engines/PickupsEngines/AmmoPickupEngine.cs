@@ -32,7 +32,8 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
             var ammoComponent = node.ammoPickupComponent;
             int ammoCount = ammoComponent.ammoValue;
             _gunNode.ammoHolderComponent.projectilesCount += ammoCount;
-            //_ammoRechargeSequence.Next(this, ref playerHealInfo, DamageCondition.heal);
+            int ammoTotalCount = _gunNode.ammoHolderComponent.projectilesCount;
+           _ammoRechargeSequence.Next(this, ref ammoTotalCount, Condition.always);
 
             node.removeEntityComponent.removeEntity();
         }
@@ -46,6 +47,8 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
         {
             _gunNode = null;
         }
+
+        
 
         public IEngineNodeDB nodesDB { set; private get; }
 

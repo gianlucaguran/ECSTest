@@ -11,13 +11,16 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
     {
         public IEngineNodeDB nodesDB { set; private get; }
 
-        public PlayerGunShootingEngine(EnemyKilledObservable enemyKilledObservable, Sequencer damageSequence)
+        public PlayerGunShootingEngine(EnemyKilledObservable enemyKilledObservable, Sequencer damageSequence, Sequencer ammoDepletionSequence)
         {
             _enemyKilledObservable = enemyKilledObservable;
             _enemyDamageSequence = damageSequence;
+            _ammoDepletionSequence = ammoDepletionSequence;
 
             TaskRunner.Instance.Run(new Tasks.TimedLoopActionEnumerator(Tick));
         }
+
+
 
         protected override void AddNode(GunNode node)
         {
@@ -25,16 +28,16 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
         }
 
         protected override void RemoveNode(GunNode node)
-        {}
+        { }
 
         protected override void AddNode(PlayerNode node)
-        {}
+        { }
 
         protected override void RemoveNode(PlayerNode node)
         {
             //the gun is never removed (because the level reloads on death), 
             //so remove on playerdeath
-            _playerGunNode = null; 
+            _playerGunNode = null;
         }
 
         void Tick(float deltaSec)
@@ -46,9 +49,9 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
 
             playerGunComponent.timer += deltaSec;
 
-            if (Input.GetButton("Fire1") && playerGunComponent.timer >= _playerGunNode.gunComponent.timeBetweenBullets 
+            if (Input.GetButton("Fire1") && playerGunComponent.timer >= _playerGunNode.gunComponent.timeBetweenBullets
                 && Time.timeScale != 0
-                && playerAmmoComponent.projectilesCount > 0 )
+                && playerAmmoComponent.projectilesCount > 0)
                 Shoot();
         }
 
@@ -62,7 +65,11 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
             playerGunComponent.timer = 0;
             playerAmmoComponent.projectilesCount--;
 
-            if (Physics.Raycast(playerGunComponent.shootRay, 
+            int ammoTotalCount = playerAmmoComponent.projectilesCount;
+            _ammoDepletionSequence.Next(this, ref ammoTotalCount, Condition.always);
+
+
+            if (Physics.Raycast(playerGunComponent.shootRay,
                 out shootHit, playerGunComponent.range, SHOOTABLE_MASK | ENEMY_MASK))
             {
                 var hitGO = shootHit.collider.gameObject;
@@ -97,14 +104,15 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Gun
             OnTargetDead(token.entityDamaged);
         }
 
-        GunNode                 _playerGunNode;
+        GunNode _playerGunNode;
 
-        readonly EnemyKilledObservable   _enemyKilledObservable;
-        readonly Sequencer               _enemyDamageSequence;
+        readonly EnemyKilledObservable _enemyKilledObservable;
+        readonly Sequencer _enemyDamageSequence;
+        readonly Sequencer _ammoDepletionSequence;
 
         static readonly int SHOOTABLE_MASK = LayerMask.GetMask("Shootable");
         static readonly int ENEMY_MASK = LayerMask.GetMask("Enemies");
         static readonly int ENEMY_LAYER = LayerMask.NameToLayer("Enemies");
-        
+
     }
 }

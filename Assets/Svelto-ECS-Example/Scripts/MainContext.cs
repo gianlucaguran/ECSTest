@@ -37,13 +37,14 @@ namespace Svelto.ECS.Example.Survive
             Sequencer enemyDamageSequence = new Sequencer();
             Sequencer playerHealSequence = new Sequencer();
             Sequencer ammoRechargeSequence = new Sequencer();
+            Sequencer ammoDepletionSequence = new Sequencer();
 
             var enemyAnimationEngine = new EnemyAnimationEngine();
-            var playerHealthEngine = new HealthEngine(playerDamageSequence, playerHealSequence );
+            var playerHealthEngine = new HealthEngine(playerDamageSequence, playerHealSequence);
             var enemyHealthEngine = new HealthEngine(enemyDamageSequence);
             var hudEngine = new HUDEngine();
             var damageSoundEngine = new DamageSoundEngine();
-            var playerShootingEngine = new PlayerGunShootingEngine(enemyKilledObservable, enemyDamageSequence);
+            var playerShootingEngine = new PlayerGunShootingEngine(enemyKilledObservable, enemyDamageSequence, ammoDepletionSequence);
             var playerMovementEngine = new PlayerMovementEngine();
             var playerAnimationEngine = new PlayerAnimationEngine();
             var enemyAttackEngine = new EnemyAttackEngine(playerDamageSequence);
@@ -53,7 +54,7 @@ namespace Svelto.ECS.Example.Survive
             var ammoPickupEngine = new AmmoPickupEngine(ammoRechargeSequence);
             var pickupSpawnerEngine = new PickupSpawnerEngine(factory, _entityFactory);
             var pickupSoundEngine = new PickupSoundEngine();
-            
+            var ammoGUIEngine = new AmmoGUIEngine();
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -110,29 +111,44 @@ namespace Svelto.ECS.Example.Survive
                     },
 
                      { //second step
-                        playerHealthEngine, 
-                        new Dictionary<System.Enum, IStep[]>()  
+                        playerHealthEngine,
+                        new Dictionary<System.Enum, IStep[]>()
                         {
-                            {  DamageCondition.heal, new IStep[] { hudEngine/*, pickupSoundEngine*/ }  }, 
+                            {  DamageCondition.heal, new IStep[] { hudEngine/*, pickupSoundEngine*/ }  },
                         }
                     }
                 }
              );
 
             ////Sequence for ammo recharge
-            //ammoRechargeSequence.SetSequence(
-            //    new Steps()
-            //    {
-            //        //{
-            //        //    ammoPickupEngine,
-            //        //    new Dictionary<System.Enum, IStep[]>()
-            //        //    {
-            //        //        {Condition.always, new IStep[]{  } },
-            //        //    }
-            //        //},
+            ammoRechargeSequence.SetSequence(
+                new Steps()
+                {
+                    {
+                        ammoPickupEngine,
+                        new Dictionary<System.Enum, IStep[]>()
+                        {
+                            {Condition.always, new IStep[]{ ammoGUIEngine  } },
+                        }
+                    },
 
-            //    }
-            //    );
+                }
+                );
+
+            ////Sequence for ammo usage
+            ammoDepletionSequence.SetSequence(
+                new Steps()
+                {
+                    {
+                        playerShootingEngine,
+                        new Dictionary<System.Enum, IStep[]>()
+                        {
+                            {Condition.always, new IStep[]{ ammoGUIEngine  } },
+                        }
+                    },
+
+                }
+                );
 
             AddEngine(playerMovementEngine);
             AddEngine(playerAnimationEngine);
@@ -153,6 +169,7 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(ammoPickupEngine);
             AddEngine(pickupSpawnerEngine);
             AddEngine(pickupSoundEngine);
+            AddEngine(ammoGUIEngine);
         }
 
         void AddEngine(IEngine engine)
@@ -166,7 +183,7 @@ namespace Svelto.ECS.Example.Survive
 
             for (int i = 0; i < entities.Length; i++)
             {
-                
+
                 _entityFactory.BuildEntity((entities[i] as MonoBehaviour).gameObject.GetInstanceID(), entities[i].BuildDescriptorType());
             }
         }

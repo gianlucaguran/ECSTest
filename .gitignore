@@ -16,3 +16,4 @@ UWP
 /Assets/WSATestCertificate.pfx
 /UnityPackageManager/manifest.json
 .vs/HorribleTest/v15/.suo
+*.suo

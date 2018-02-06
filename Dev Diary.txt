@@ -6,17 +6,17 @@ To understand if all enemies are defeated, a counter variable is added to the en
 The increment is easy to implement as all the related logic is inside the EnemySpawningEngine.
 The decrement requires some kind of event that allows the engine to know when an enemy is killed.
 I initially implemented it using an observer, which was passed to the SpawningEngine.
-Then I wanted to try to re-implement it using the Sequencer. I added another step to the EnemyDamageSequence, which call the EnemySpawnEngine. Inside its step, the engine decreases the counter.
+Then I wanted to try to re-implement it using the Sequencer. I added another step to the EnemyDamageSequence, which calls the EnemySpawnEngine. Inside its step, the engine decreases the counter.
 
 Problem - timing the enemy spawns: 
 The spawn logic is inside a function which is called inside the IntervaledTick method.
 Initially I wanted to put some delay between each enemy spawn (in the same wave), but I didn't manage to call a second IEnumerator from inside IntervaledTick. 
 So I made all the enemies spawn all together, and the result is ok.
-I will eventually improve it later by checking better how the TaskRunner works.
+====  I will eventually improve it later by checking better how the TaskRunner works. ==== 
 
 - Pickups
 I created a common interface for all pickups components(IPickUpComponent), and then specialized it for ammo and health. It contains a delegate field that will be set by the engine. That function is used on TriggerEnter.
-I created a component for Pickupspawning, similar to the one for the enemies.
+I created a component for Pickup spawning, similar to the one for the enemies.
 
 
 
@@ -25,3 +25,14 @@ Pickup Sounds:
 I want to add a sound when a pickup is activated. 
 I create an appropriate component that contains an audiosource and an audioclip, and include that in the pickup entity. I create and an engine that plays that audioclip as step of the healing sequence.
 During testing, the sound is not played properly because the entity gets destroyed during the event, as well as the game object containing the sound.
+=====  Postponing this to later.  ==== 
+
+Ammo mechanic:
+Created AmmoHolder component for the player that keeps track of the amount of ammo.
+Changed logic of the PlayerGunShootingEngine to decrease ammo and check it's != 0 before shooting.
+UI to show Ammo count : imitated Score Manager. But how to actually setup the event of ammo changed ?
+Setting up a way to notify ammo count change: 
+Used 2 sequence. Ammo recharge sequence was already present, added step with AmmoGUIEngine. For ammo depletion, I created a specific sequence called inside the PlayerShootingEngine.
+I thought about creating an observer for ammo update, but sequencer felt  more flexible (and a recharge sequence was already present... )
+
+ 

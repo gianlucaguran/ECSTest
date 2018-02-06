@@ -24,4 +24,9 @@ namespace Svelto.ECS.Example.Survive.Components.HUD
     {
         int score { set; get; }
     }
+
+    public interface IAmmoCountComponent: IComponent
+    {
+        int ammo { set; get; }
+    }
 }
