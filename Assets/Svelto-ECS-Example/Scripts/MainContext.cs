@@ -57,6 +57,7 @@ namespace Svelto.ECS.Example.Survive
             var pickupSoundEngine = new PickupSoundEngine();
             var ammoGUIEngine = new AmmoGUIEngine();
             var specialAttackEngine = new SpecialAttackEngine();
+            var specialAttackGUIEngine = new SpecialAttackGUIEngine();
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -173,6 +174,7 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(pickupSoundEngine);
             AddEngine(ammoGUIEngine);
             AddEngine(specialAttackEngine);
+            AddEngine(specialAttackGUIEngine);
         }
 
         void AddEngine(IEngine engine)

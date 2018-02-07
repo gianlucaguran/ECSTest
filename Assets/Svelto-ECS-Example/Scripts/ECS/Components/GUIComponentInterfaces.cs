@@ -29,4 +29,10 @@ namespace Svelto.ECS.Example.Survive.Components.HUD
     {
         int ammo { set; get; }
     }
+
+    public interface ISpecialBarComponent: IComponent
+    {
+        Slider bar { get; }
+        GameObject readyIcon { get; }
+    }
 }

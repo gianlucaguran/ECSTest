@@ -16,33 +16,32 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
 
         void Tick(float deltaSec)
         {
-            if (null != _player)
+            if (null == _player)
             {
-                var specialAtkComponent = _player.specialAttackComponent;
-                bool hasPerformedSpecial = false;
-
-                if (Input.GetButtonDown("Jump"))  //Spacebar 
-                {
-                    if (specialAtkComponent.cooldownTimer > specialAtkComponent.cooldown)
-                    {
-                        PerformSpecialAttack();
-                        specialAtkComponent.cooldownTimer = 0.0f;
-                        hasPerformedSpecial = true;
-                    }
-                    else
-                    {
-                        Debug.Log("Still in CD");
-                    }
-                }
-
-                if (!hasPerformedSpecial)
-                {
-                    specialAtkComponent.cooldownTimer += deltaSec;
-                }
-
+                return;
             }
 
+            var specialAtkComponent = _player.specialAttackComponent;
+            bool hasPerformedSpecial = false;
 
+            if (Input.GetButtonDown("Jump"))  //Spacebar 
+            {
+                if (specialAtkComponent.cooldownTimer > specialAtkComponent.cooldown)
+                {
+                    PerformSpecialAttack();
+                    specialAtkComponent.cooldownTimer = 0.0f;
+                    hasPerformedSpecial = true;
+                }
+                else
+                {
+                    Debug.Log("Still in CD");
+                }
+            }
+
+            if (!hasPerformedSpecial)
+            {
+                specialAtkComponent.cooldownTimer += deltaSec;
+            } 
         }
 
         void PerformSpecialAttack()
@@ -72,7 +71,6 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
         protected override void AddNode(EnemyNode node)
         {
             _enemyList.Add(node);
-            Debug.Log(node.transformComponent.transform.gameObject.name + " Added");
         }
 
         protected override void RemoveNode(PlayerNode node)
@@ -83,7 +81,6 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
         protected override void RemoveNode(EnemyNode node)
         {
             _enemyList.Remove(node);
-            Debug.Log(node.transformComponent.transform.gameObject.name + " remove");
         }
 
 
