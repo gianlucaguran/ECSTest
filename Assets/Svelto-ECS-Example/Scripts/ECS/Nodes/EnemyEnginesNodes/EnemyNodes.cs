@@ -15,6 +15,8 @@ namespace Svelto.ECS.Example.Survive.Nodes.Enemies
         public IHealthComponent           healthComponent;
         public IAnimationComponent        animationComponent;
         public ITransformComponent        transformComponent;
+
+        public IRigidBodyComponent          rigidBodyComponent;
     }
 
     public class EnemySpawningNode : NodeWithID

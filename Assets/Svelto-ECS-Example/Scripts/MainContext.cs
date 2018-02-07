@@ -12,6 +12,7 @@ using UnityEngine;
 using Steps = System.Collections.Generic.Dictionary<Svelto.ECS.IEngine, System.Collections.Generic.Dictionary<System.Enum, Svelto.ECS.IStep[]>>;
 using System.Collections.Generic;
 using Svelto.ECS.NodeSchedulers;
+using Svelto.ECS.Example.Survive.Engines.Player.Special;
 
 //Main is the Application Composition Root.
 //Composition Root is the place where the framework can be initialised.
@@ -55,6 +56,7 @@ namespace Svelto.ECS.Example.Survive
             var pickupSpawnerEngine = new PickupSpawnerEngine(factory, _entityFactory);
             var pickupSoundEngine = new PickupSoundEngine();
             var ammoGUIEngine = new AmmoGUIEngine();
+            var specialAttackEngine = new SpecialAttackEngine();
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -170,6 +172,7 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(pickupSpawnerEngine);
             AddEngine(pickupSoundEngine);
             AddEngine(ammoGUIEngine);
+            AddEngine(specialAttackEngine);
         }
 
         void AddEngine(IEngine engine)

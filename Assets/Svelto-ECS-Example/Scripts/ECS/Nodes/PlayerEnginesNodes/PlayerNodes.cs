@@ -12,6 +12,7 @@ namespace Svelto.ECS.Example.Survive.Nodes.Player
         public IRigidBodyComponent     rigidBodyComponent;
         public IPositionComponent      positionComponent;
         public IAnimationComponent     animationComponent;
+        public ISpecialAttackComponent specialAttackComponent;
     }
 
     public class PlayerTargetNode : NodeWithID

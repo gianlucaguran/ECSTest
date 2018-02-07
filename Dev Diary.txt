@@ -39,3 +39,16 @@ I found a bit awkward to find a way to pass the initial ammo value to the relati
  MultiNodesEngine<HUDNode, GunNode> . It takes the ammo count from gun node and set it in the HUD node.
 Doubt: what if, when the GunNode is added, the HUD node is still not set? During testing this never happened though.
  
+Special Attack mechanic :
+
+Why I cannot do this???
+ //timer that increases each tick
+        float ISpecialAttackComponent.cooldownTimer { get; set; }
+
+        void Awake()
+        {
+            coolDownTimer = 0.0f;
+        }
+
+Node: initially I thought about creating a separate node for the special attack logic, but it's terribly unconvenient as I need to access other player properties. So I added the ISpecialAttackComponent to the Player Node.
+How to implement special attack: since the special attack is basically a push, and the movement/walk logic of enemies is done with navmeshes, I thnk the best solution to implement the special is to use physics force. To do so, I need to access the enemies rigidbodies, so I added a IRigidBodyComponent to the EnemyNode.

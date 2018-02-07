@@ -3,7 +3,7 @@ using UnityEngine;
 using Svelto.ECS.Example.Survive.Nodes.Player;
 using Svelto.ECS.Example.Survive.Nodes.Enemies;
 using Svelto.ECS.Example.Survive.Nodes.DamageableEntities;
-using Svelto.ECS.Example.Survive.Nodes.Sound;
+using Svelto.ECS.Example.Survive.Nodes.Sound; 
 
 namespace Svelto.ECS.Example.Survive.EntityDescriptors.Player
 {
@@ -19,7 +19,7 @@ namespace Svelto.ECS.Example.Survive.EntityDescriptors.Player
                 new NodeBuilder<PlayerNode>(),
                 new NodeBuilder<EnemyTargetNode>(),
                 new NodeBuilder<HealthNode>(),
-                new NodeBuilder<DamageSoundNode>()
+                new NodeBuilder<DamageSoundNode>(),
 			};
 		}
 
