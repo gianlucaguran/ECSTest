@@ -870,7 +870,7 @@ MonoBehaviour:
   - {fileID: 1496489667}
   - {fileID: 1723354111}
   spawnTime: 10
-  spawnProbability: 0.2
+  spawnProbability: 0.3
 --- !u!114 &111660592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,23 +3199,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4e5a0d387dc27394b81600988ad0216f, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &694629280 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100006, guid: 4e5a0d387dc27394b81600988ad0216f, type: 2}
-  m_PrefabInternal: {fileID: 694629279}
---- !u!114 &694629281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 694629280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62549eae7946e5341b8d545251f33b47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AmmoSound: {fileID: 8300000, guid: 961de8f9753a30a489afd9fd9912400b, type: 3}
-  HealthSound: {fileID: 8300000, guid: 8354c9f08ed50d34e9d6312cbbf9c353, type: 3}
 --- !u!1 &710223755
 GameObject:
   m_ObjectHideFlags: 0

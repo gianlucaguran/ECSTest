@@ -1,4 +1,5 @@
 using Svelto.ECS.Example.Survive.Components.Damageable;
+using Svelto.ECS.Example.Survive.Components.Pickups;
 using Svelto.ECS.Example.Survive.Nodes.DamageableEntities;
 using System;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace Svelto.ECS.Example.Survive.Engines.Health
         }
 
         public void Step(ref PlayerHealInfo token, Enum condition)
-        {
+        { 
             Heal(ref token);
         }
 
@@ -62,7 +63,9 @@ namespace Svelto.ECS.Example.Survive.Engines.Health
             int health = healthComponent.currentHealth + heal.HPGained;
             healthComponent.currentHealth = Math.Min(health, healthComponent.maxHealth);
 
-            _healSequence.Next(this, ref heal, DamageCondition.heal);
+            //using -1 for pickupID as I can't retrieve the pickupID here and we don't actuallneed the value
+            HealthPickupInfo info = new HealthPickupInfo(heal.entityHealed, -1, heal.HPGained);
+            _healSequence.Next(this, ref info, DamageCondition.heal);
         }
     }
 }

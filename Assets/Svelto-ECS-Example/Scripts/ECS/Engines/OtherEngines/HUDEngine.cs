@@ -1,11 +1,12 @@
 using Svelto.ECS.Example.Survive.Components.Damageable;
+using Svelto.ECS.Example.Survive.Components.Pickups;
 using Svelto.ECS.Example.Survive.Nodes.HUD;
 using System;
 using UnityEngine;
 
 namespace Svelto.ECS.Example.Survive.Engines.HUD
 {
-    public class HUDEngine : SingleNodeEngine<HUDNode>, IQueryableNodeEngine, IStep<PlayerDamageInfo> , IStep<PlayerHealInfo>
+    public class HUDEngine : SingleNodeEngine<HUDNode>, IQueryableNodeEngine, IStep<PlayerDamageInfo> , IStep<HealthPickupInfo>
     {
         public IEngineNodeDB nodesDB { set; private get; }
 
@@ -59,8 +60,8 @@ namespace Svelto.ECS.Example.Survive.Engines.HUD
                 
         }
 
-        public void Step( ref PlayerHealInfo token, Enum condition )
-        {
+        public void Step( ref HealthPickupInfo token, Enum condition )
+        { 
             if ((DamageCondition)condition == DamageCondition.heal)
             {
                 OnHealEvent(ref token);
@@ -69,12 +70,9 @@ namespace Svelto.ECS.Example.Survive.Engines.HUD
 
         //Healing event
         //similar to damage event but increases value of the slider, and doesn't flash the damage image
-        void OnHealEvent( ref PlayerHealInfo token )
-        {
-            var damageComponent = _guiNode.damageImageComponent;
-            var damageImage = damageComponent.damageImage;
-            
-            _guiNode.healthSliderComponent.healthSlider.value = nodesDB.QueryNode<HUDDamageEventNode>(token.entityHealed).healthComponent.currentHealth;
+        void OnHealEvent( ref HealthPickupInfo token )
+        {  
+            _guiNode.healthSliderComponent.healthSlider.value = nodesDB.QueryNode<HUDDamageEventNode>(token.entity).healthComponent.currentHealth;
         }
 
         HUDNode         _guiNode;

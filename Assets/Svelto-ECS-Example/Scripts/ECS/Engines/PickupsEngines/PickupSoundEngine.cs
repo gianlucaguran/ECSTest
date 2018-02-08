@@ -1,50 +1,58 @@
 ﻿using System;
 using Svelto.ECS.Example.Survive.Nodes.Pickups;
 using Svelto.ECS.Internal;
-using UnityEngine;
-using Svelto.ECS.Example.Survive.Components.Damageable;
+using UnityEngine; 
+using Svelto.ECS.Example.Survive.Components.Pickups;
 
 namespace Svelto.ECS.Example.Survive.Engines.Pickups
 {
-    public class PickupSoundEngine : MultiNodesEngine<HealthPickupReactionNode, AmmoPickupReactionNode>, IQueryableNodeEngine, IStep<PlayerHealInfo>, IStep<int>
+    public abstract class PickupSoundEngine<T, U, W> : MultiNodesEngine<T>, IStep<W>
+        where T : IPickupReactionNode<U>
+        where U : IPickUpSoundReaction
+        where W : IPickupInfo
+
+    {
+        public abstract void Step(ref W token, Enum condition);
+    }
+
+
+    public class HealthPickupSoundEngine : PickupSoundEngine<HealthPickupReactionNode, IHealthSoundReaction, HealthPickupInfo>,
+        IQueryableNodeEngine 
     {
         public IEngineNodeDB nodesDB { set; private get; }
 
-
-
-        //nodeID not used, kept for callback compatibility purpose
-        void PlaySound(int entityHealedID, int nodeID)
+        public override void Step(ref HealthPickupInfo token, Enum condition)
         {
-            var node = nodesDB.QueryNode<HealthPickupReactionNode>(entityHealedID);
+            var node = nodesDB.QueryNode<HealthPickupReactionNode>(token.entity);
             node.soundComponent.audioSource.PlayOneShot(node.soundComponent.sound);
         }
 
-       
-
-        public void Step(ref PlayerHealInfo token, Enum condition)
-        {
-            Debug.Log("Step called from pickupsoundengine");
-            PlaySound(token.entityHealed, token.sourceID);
-        }
-
         protected override void AddNode(HealthPickupReactionNode node)
-        { 
+        {
         }
 
         protected override void RemoveNode(HealthPickupReactionNode node)
-        { 
+        {
         }
+    }
 
-        public void Step(ref int token, Enum condition)
-        { 
+    public class AmmoPickupSoundEngine : PickupSoundEngine<AmmoPickupReactionNode, IAmmoSoundReaction, AmmoPickupInfo>, 
+        IQueryableNodeEngine 
+    {
+        public IEngineNodeDB nodesDB { set; private get; }
+
+        public override void Step(ref AmmoPickupInfo token, Enum condition)
+        {
+            var node = nodesDB.QueryNode<AmmoPickupReactionNode>(token.entity);
+            node.soundComponent.audioSource.PlayOneShot(node.soundComponent.sound);
         }
 
         protected override void AddNode(AmmoPickupReactionNode node)
-        { 
+        {
         }
 
         protected override void RemoveNode(AmmoPickupReactionNode node)
-        { 
+        {
         }
     }
 }

@@ -2,6 +2,8 @@
 using Svelto.ECS.Example.Survive.Nodes.Pickups;
 using Svelto.ECS.Internal;
 using Svelto.ECS.Example.Survive.Nodes.Gun;
+using Svelto.ECS.Example.Survive.Components.Pickups;
+using UnityEngine;
 
 namespace Svelto.ECS.Example.Survive.Engines.Pickups
 {
@@ -33,7 +35,8 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
             int ammoCount = ammoComponent.ammoValue;
             _gunNode.ammoHolderComponent.projectilesCount += ammoCount;
             int ammoTotalCount = _gunNode.ammoHolderComponent.projectilesCount;
-           _ammoRechargeSequence.Next(this, ref ammoTotalCount, Condition.always);
+            AmmoPickupInfo info = new AmmoPickupInfo(entityID, pickupID, ammoTotalCount); 
+           _ammoRechargeSequence.Next(this, ref info, Condition.always);
 
             node.removeEntityComponent.removeEntity();
         }

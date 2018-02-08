@@ -1,4 +1,5 @@
-﻿using Svelto.ECS.Example.Survive.Components.Base;
+﻿using System;
+using Svelto.ECS.Example.Survive.Components.Base;
 using Svelto.ECS.Example.Survive.Components.Pickups;
 
 
@@ -24,14 +25,18 @@ namespace Svelto.ECS.Example.Survive.Nodes.Pickups
     }
 
     //nodes put on entities who can pick bonuses to make them play sounds on pickup
-    public class HealthPickupReactionNode : NodeWithID
+    public abstract class IPickupReactionNode<T> : NodeWithID
+        where T: IPickUpSoundReaction
     {
-        public IHealthSoundReaction soundComponent;
+        public T soundComponent;     
     }
 
-    public class AmmoPickupReactionNode : NodeWithID
-    {
-        public IAmmoSoundReaction soundComponent;
+    public class HealthPickupReactionNode : IPickupReactionNode<IHealthSoundReaction>
+    {   
+    }
+
+    public class AmmoPickupReactionNode : IPickupReactionNode<IAmmoSoundReaction>
+    {   
     }
 }
 
