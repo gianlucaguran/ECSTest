@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 8200002}
   - component: {fileID: 11491006}
   - component: {fileID: 114862003328156826}
+  - component: {fileID: 114986747365435818}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4112,4 +4113,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 1000
   Cooldown: 10
-  Distance: 5
+  SquaredDistance: 25
+--- !u!114 &114986747365435818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc09ebe46ddf934393774b113ca0290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackClip: {fileID: 8300000, guid: b03095a682425984eaf5b1f54857cb38, type: 3}
+  CooldownFailClip: {fileID: 8300000, guid: f921f3a80070cae4cbb2f8cfbf5a716e, type: 3}

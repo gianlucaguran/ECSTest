@@ -16,7 +16,7 @@ namespace Svelto.ECS.Example.Survive.Engines.Pickups
         void PlaySound(int entityHealedID, int nodeID)
         {
             var node = nodesDB.QueryNode<HealthPickupReactionNode>(nodeID);
-            node.soundComponent.audioSource.PlayOneShot(node.soundComponent.sound);
+            //node.soundComponent.audioSource.PlayOneShot(node.soundComponent.sound);
         }
 
        

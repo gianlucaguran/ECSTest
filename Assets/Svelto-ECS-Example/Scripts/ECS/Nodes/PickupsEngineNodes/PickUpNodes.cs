@@ -26,12 +26,12 @@ namespace Svelto.ECS.Example.Survive.Nodes.Pickups
     //nodes put on entities who can pick bonuses to make them play sounds on pickup
     public class HealthPickupReactionNode : NodeWithID
     {
-        public ISingleSoundComponent soundComponent;
+         
     }
 
     public class AmmoPickupReactionNode : NodeWithID
     {
-        public ISingleSoundComponent soundComponent;
+         
     }
 }
 

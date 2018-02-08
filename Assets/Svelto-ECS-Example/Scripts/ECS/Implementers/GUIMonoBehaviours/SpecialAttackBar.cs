@@ -17,8 +17,7 @@ namespace Svelto.ECS.Example.Survive.Implementers.HUD
         void Awake()
         {
             _slider = this.GetComponentInChildren<Slider>();
-            _icon = transform.GetChild(1).gameObject;
-            Debug.Log(_icon);
+            _icon = transform.GetChild(1).gameObject; 
         }
 
         Slider _slider;

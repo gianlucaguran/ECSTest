@@ -39,6 +39,7 @@ namespace Svelto.ECS.Example.Survive
             Sequencer playerHealSequence = new Sequencer();
             Sequencer ammoRechargeSequence = new Sequencer();
             Sequencer ammoDepletionSequence = new Sequencer();
+            Sequencer specialAtkFXSequence = new Sequencer();
 
             var enemyAnimationEngine = new EnemyAnimationEngine();
             var playerHealthEngine = new HealthEngine(playerDamageSequence, playerHealSequence);
@@ -56,8 +57,9 @@ namespace Svelto.ECS.Example.Survive
             var pickupSpawnerEngine = new PickupSpawnerEngine(factory, _entityFactory);
             var pickupSoundEngine = new PickupSoundEngine();
             var ammoGUIEngine = new AmmoGUIEngine();
-            var specialAttackEngine = new SpecialAttackEngine();
+            var specialAttackEngine = new SpecialAttackEngine(specialAtkFXSequence);
             var specialAttackGUIEngine = new SpecialAttackGUIEngine();
+            var specialAttackSoundEngine = new PlayerSpecialAtkSoundEngine();
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -153,6 +155,25 @@ namespace Svelto.ECS.Example.Survive
                 }
                 );
 
+            //Sequence for special attack FX 
+            specialAtkFXSequence.SetSequence(
+                new Steps()
+                {
+                    {
+                        specialAttackEngine,
+                        new Dictionary<System.Enum, IStep[]>()
+                        {
+                            {SpecialAttackCondition.perform, new IStep[]{ specialAttackSoundEngine } },
+                            {SpecialAttackCondition.fail, new IStep[]{ specialAttackSoundEngine } },
+                        }
+                    },
+                     
+                }
+                );
+
+
+
+
             AddEngine(playerMovementEngine);
             AddEngine(playerAnimationEngine);
             AddEngine(playerShootingEngine);
@@ -175,6 +196,7 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(ammoGUIEngine);
             AddEngine(specialAttackEngine);
             AddEngine(specialAttackGUIEngine);
+            AddEngine(specialAttackSoundEngine);
         }
 
         void AddEngine(IEngine engine)

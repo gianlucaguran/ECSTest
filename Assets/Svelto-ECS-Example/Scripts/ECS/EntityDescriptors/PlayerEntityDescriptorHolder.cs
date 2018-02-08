@@ -20,6 +20,7 @@ namespace Svelto.ECS.Example.Survive.EntityDescriptors.Player
                 new NodeBuilder<EnemyTargetNode>(),
                 new NodeBuilder<HealthNode>(),
                 new NodeBuilder<DamageSoundNode>(),
+                new NodeBuilder<PlayerSpecialAttackSoundNode>(),
 			};
 		}
 

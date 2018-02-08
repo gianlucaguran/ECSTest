@@ -33,11 +33,5 @@ namespace Svelto.ECS.Example.Survive.Components.Base
         AudioClip   death       { get; }
         AudioClip   damage      { get; }
     }
-
-    public interface ISingleSoundComponent: IComponent
-    {
-        AudioSource audioSource { get; }
-        AudioClip sound { get; }
-    }
-   
+     
 }

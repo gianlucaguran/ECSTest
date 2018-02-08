@@ -9,11 +9,11 @@ namespace Svelto.ECS.Example.Survive.Implementers.Player
         //Editor variables - special attack configurable parameters
         public float Power = 50.0f;
         public float Cooldown = 10.0f;
-        public float Distance = 5.0f;
+        public float SquaredDistance = 5.0f;
         //
         float ISpecialAttackComponent.cooldown { get { return Cooldown; } }
 
-        float ISpecialAttackComponent.distance { get { return Distance; } }
+        float ISpecialAttackComponent.sqrDistance { get { return SquaredDistance; } }
 
         float ISpecialAttackComponent.power { get { return Power; } }
 

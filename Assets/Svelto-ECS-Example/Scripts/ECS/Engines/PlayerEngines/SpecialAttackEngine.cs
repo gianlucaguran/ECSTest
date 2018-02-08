@@ -14,6 +14,11 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
             TaskRunner.Instance.Run(new Tasks.TimedLoopActionEnumerator(Tick));
         }
 
+        public SpecialAttackEngine(Sequencer specialAtkFXSequence) : this()
+        {
+            _specialAtkFXSequence = specialAtkFXSequence;
+        }
+
         void Tick(float deltaSec)
         {
             if (null == _player)
@@ -34,7 +39,8 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
                 }
                 else
                 {
-                    Debug.Log("Still in CD");
+                    SpecialAttackCondition param = SpecialAttackCondition.fail;
+                    _specialAtkFXSequence.Next(this, ref param, SpecialAttackCondition.fail);
                 }
             }
 
@@ -46,6 +52,9 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
 
         void PerformSpecialAttack()
         {
+            SpecialAttackCondition param = SpecialAttackCondition.perform;
+            _specialAtkFXSequence.Next(this, ref param, SpecialAttackCondition.perform); 
+
             Vector3 distance;
             Vector3 force;
             foreach (EnemyNode node in _enemyList)
@@ -53,11 +62,10 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
                 distance = node.transformComponent.transform.position -
                    _player.positionComponent.position;
 
-                if (distance.magnitude <= _player.specialAttackComponent.distance)
+                if (distance.sqrMagnitude <= _player.specialAttackComponent.sqrDistance)
                 {
                     force = distance.normalized * _player.specialAttackComponent.power;
-                    node.rigidBodyComponent.rigidbody.AddForce(force);
-                    Debug.Log("pushing " + node.transformComponent.transform.gameObject.name);
+                    node.rigidBodyComponent.rigidbody.AddForce(force);  
                 }
             }
 
@@ -86,5 +94,6 @@ namespace Svelto.ECS.Example.Survive.Engines.Player.Special
 
         FasterList<EnemyNode> _enemyList;
         PlayerNode _player;
+        Sequencer _specialAtkFXSequence;
     }
 }

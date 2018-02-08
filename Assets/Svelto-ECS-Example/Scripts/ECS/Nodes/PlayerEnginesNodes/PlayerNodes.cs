@@ -20,6 +20,11 @@ namespace Svelto.ECS.Example.Survive.Nodes.Player
         public IHealthComponent         healthComponent;
         public ITargetTypeComponent     targetTypeComponent;
     }
+
+    public class PlayerSpecialAttackSoundNode : NodeWithID
+    {
+        public ISpecialAtkSoundComponent soundComponent;
+    }
 }
 
 namespace Svelto.ECS.Example.Survive.Nodes.Gun

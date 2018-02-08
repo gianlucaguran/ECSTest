@@ -39,7 +39,9 @@ I found a bit awkward to find a way to pass the initial ammo value to the relati
  MultiNodesEngine<HUDNode, GunNode> . It takes the ammo count from gun node and set it in the HUD node.
 Doubt: what if, when the GunNode is added, the HUD node is still not set? During testing this never happened though.
  
-Special Attack mechanic :
+Special Attack mechanic :   
+
+=== NOTE : SPECIAL ATTACK IS DONE WITH SPACEBAR =====
 
 Why I cannot do this???
  //timer that increases each tick
@@ -52,3 +54,17 @@ Why I cannot do this???
 
 Node: initially I thought about creating a separate node for the special attack logic, but it's terribly unconvenient as I need to access other player properties. So I added the ISpecialAttackComponent to the Player Node.
 How to implement special attack: since the special attack is basically a push, and the movement/walk logic of enemies is done with navmeshes, I thnk the best solution to implement the special is to use physics force. To do so, I need to access the enemies rigidbodies, so I added a IRigidBodyComponent to the EnemyNode.
+Special attack logic: to push the closest enemies , i check the distance of the player with each enemy present. To do so, I keep a list of all the enemiesNode in the engine. 
+Alternative : using a trigger and keeping track of enemies inside it (with a list), I preferred the current way because it doesn't require me to setup triggers and events.
+
+Special attack GUI: 
+- added vertical slider to HUD and deactivated icon
+- created SpecialBarComponent and added to hudNode
+- created a SpecialAttackGUIEngine which uses the HUDNode and the PlayerNode: reads the specialAttackComponent of the player and updates the SpecialAttackBarComponent in the HuD.
+- Adapting the slider to look more like a bar: deactivated handle, resized background to have it shorter (so Fill sprite fills it completely)
+
+
+Sounds: I wanted to add a sound during the Special Attack execution, and one if the player tried to perform it during cooldown.
+First approach was to use a shared component i created previously, SingleSoundComponent (1 audiosource + 1 audioclip), and create a node containing two components of this type. But then, a monobehaviour cannot implement an interface 2 times , and the whole approach seemed to not be doable.
+So I implemented a specific component for both sounds , ISpecialAtkSoundComponent . 
+To get the sound played, I use a sequence. For this sequence I created a specific enumeration (SpecialAttackCondition), which is passed as parameter to each step to determine which sound to play. Seems that Step functions always need a ref parameter to pass down data, and there's no overload skipping that . In my case there's nothing to pass down other than the condition,  so I duplicate the enum I pass down.
