@@ -1,9 +1,10 @@
 ﻿using Svelto.ECS.Example.Survive.Nodes.HUD;
 using UnityEngine;
 using Svelto.ECS.Example.Survive.Nodes.Player;
-using Svelto.ECS.Example.Survive.Nodes.Enemies;
 using Svelto.ECS.Example.Survive.Nodes.DamageableEntities;
-using Svelto.ECS.Example.Survive.Nodes.Sound; 
+using Svelto.ECS.Example.Survive.Nodes.Sound;
+using Svelto.ECS.Example.Survive.Nodes.Enemies;
+using Svelto.ECS.Example.Survive.Nodes.Pickups;
 
 namespace Svelto.ECS.Example.Survive.EntityDescriptors.Player
 {
@@ -21,7 +22,9 @@ namespace Svelto.ECS.Example.Survive.EntityDescriptors.Player
                 new NodeBuilder<HealthNode>(),
                 new NodeBuilder<DamageSoundNode>(),
                 new NodeBuilder<PlayerSpecialAttackSoundNode>(),
-			};
+                new NodeBuilder<AmmoPickupReactionNode>(),
+                new NodeBuilder<HealthPickupReactionNode>(),
+            };
 		}
 
 		public PlayerEntityDescriptor(IComponent[] componentsImplementor):base(_nodesToBuild, componentsImplementor)

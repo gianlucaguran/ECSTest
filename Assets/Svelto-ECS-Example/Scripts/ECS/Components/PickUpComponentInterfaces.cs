@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Svelto.ECS.Example.Survive.Components.Pickups
 {
@@ -27,5 +26,18 @@ namespace Svelto.ECS.Example.Survive.Components.Pickups
         float spawnProbability { get; }
     }
 
+    public interface IPickUpSoundReaction : IComponent
+    {
+        AudioSource audioSource { get; } 
+    }
     
+    public interface IAmmoSoundReaction: IPickUpSoundReaction
+    {
+        AudioClip sound { get; }
+    }
+
+    public interface IHealthSoundReaction : IPickUpSoundReaction
+    {
+        AudioClip sound { get; }
+    }
 }

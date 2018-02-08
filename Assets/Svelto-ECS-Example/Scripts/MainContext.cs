@@ -119,7 +119,7 @@ namespace Svelto.ECS.Example.Survive
                         playerHealthEngine,
                         new Dictionary<System.Enum, IStep[]>()
                         {
-                            {  DamageCondition.heal, new IStep[] { hudEngine/*, pickupSoundEngine*/ }  },
+                            {  DamageCondition.heal, new IStep[] { hudEngine, pickupSoundEngine }  },
                         }
                     }
                 }
@@ -133,7 +133,7 @@ namespace Svelto.ECS.Example.Survive
                         ammoPickupEngine,
                         new Dictionary<System.Enum, IStep[]>()
                         {
-                            {Condition.always, new IStep[]{ ammoGUIEngine  } },
+                            {Condition.always, new IStep[]{ ammoGUIEngine, pickupSoundEngine  } },
                         }
                     },
 

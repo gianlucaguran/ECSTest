@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 11491006}
   - component: {fileID: 114862003328156826}
   - component: {fileID: 114986747365435818}
+  - component: {fileID: 114049870401307736}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4100,6 +4101,19 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100006}
   m_IsPrefabParent: 1
+--- !u!114 &114049870401307736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62549eae7946e5341b8d545251f33b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AmmoSound: {fileID: 8300000, guid: 961de8f9753a30a489afd9fd9912400b, type: 3}
+  HealthSound: {fileID: 8300000, guid: 8354c9f08ed50d34e9d6312cbbf9c353, type: 3}
 --- !u!114 &114862003328156826
 MonoBehaviour:
   m_ObjectHideFlags: 1
