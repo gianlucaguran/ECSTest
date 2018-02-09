@@ -61,6 +61,7 @@ namespace Svelto.ECS.Example.Survive
             var specialAttackSoundEngine = new PlayerSpecialAtkSoundEngine();
             var ammoPickupSoundEngine = new AmmoPickupSoundEngine();
             var healthPickupSoundEngine = new HealthPickupSoundEngine();
+            var rotatingPickupsEngine = new RotatingIdlePickupsEngine();
 
             playerDamageSequence.SetSequence(
                 new Steps() //sequence of steps
@@ -168,7 +169,7 @@ namespace Svelto.ECS.Example.Survive
                             {SpecialAttackCondition.fail, new IStep[]{ specialAttackSoundEngine } },
                         }
                     },
-                     
+
                 }
                 );
 
@@ -189,13 +190,14 @@ namespace Svelto.ECS.Example.Survive
             AddEngine(new ScoreEngine(scoreOnEnemyKilledObserver));
             AddEngine(healingPickupEngine);
             AddEngine(ammoPickupEngine);
-            AddEngine(pickupSpawnerEngine); 
+            AddEngine(pickupSpawnerEngine);
             AddEngine(ammoGUIEngine);
             AddEngine(specialAttackEngine);
             AddEngine(specialAttackGUIEngine);
             AddEngine(specialAttackSoundEngine);
             AddEngine(ammoPickupSoundEngine);
             AddEngine(healthPickupSoundEngine);
+            AddEngine(rotatingPickupsEngine);
         }
 
         void AddEngine(IEngine engine)
